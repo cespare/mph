@@ -10,6 +10,6 @@ over strings. It uses the
 
 Very rough benchmarks from my laptop:
 
-* `Build` constructed a minimal perfect hash table from a 236k word dictionary in <200ms (construction time is
+* `Build` constructs a minimal perfect hash table from a 236k word dictionary in <200ms (construction time is
   linear in the size of the input).
-* `Lookup`s on that dictionary took ~85ns, almost twice as fast as lookups in a `map[string]uint32`.
+* `Lookup`s on that dictionary take ~85ns, almost twice as fast as lookups in a `map[string]uint32`.
