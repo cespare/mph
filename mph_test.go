@@ -34,7 +34,7 @@ func testTable(t *testing.T, keys []string, extra []string) {
 			continue
 		}
 		if int(n) != i {
-			t.Errorf("Lookup(%s): got n=%d; want %d", n, i)
+			t.Errorf("Lookup(%s): got n=%d; want %d", key, n, i)
 		}
 	}
 	for _, key := range extra {
