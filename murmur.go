@@ -27,12 +27,11 @@ func (ms murmurSeed) hash(s string) uint32 {
 	h := uint32(ms)
 	l := len(s)
 	numBlocks := l / 4
-	header := reflect.SliceHeader{
-		Data: (*reflect.StringHeader)(unsafe.Pointer(&s)).Data,
-		Len:  numBlocks,
-		Cap:  numBlocks,
-	}
-	blocks := *(*[]uint32)(unsafe.Pointer(&header))
+	var blocks []uint32
+	header := (*reflect.SliceHeader)(unsafe.Pointer(&blocks))
+	header.Data = (*reflect.StringHeader)(unsafe.Pointer(&s)).Data
+	header.Len = numBlocks
+	header.Cap = numBlocks
 	for _, k := range blocks {
 		k *= c1
 		k = (k << r1Left) | (k >> r1Right)
