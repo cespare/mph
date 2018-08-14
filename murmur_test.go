@@ -1,6 +1,7 @@
 package mph
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -40,19 +41,16 @@ func TestMurmur(t *testing.T) {
 	}
 }
 
-func BenchmarkMurmur1(b *testing.B)   { benchmarkMurmur(b, 1) }
-func BenchmarkMurmur4(b *testing.B)   { benchmarkMurmur(b, 4) }
-func BenchmarkMurmur8(b *testing.B)   { benchmarkMurmur(b, 8) }
-func BenchmarkMurmur16(b *testing.B)  { benchmarkMurmur(b, 16) }
-func BenchmarkMurmur32(b *testing.B)  { benchmarkMurmur(b, 32) }
-func BenchmarkMurmur50(b *testing.B)  { benchmarkMurmur(b, 50) }
-func BenchmarkMurmur500(b *testing.B) { benchmarkMurmur(b, 500) }
-
-func benchmarkMurmur(b *testing.B, size int) {
-	s := strings.Repeat("a", size)
-	b.SetBytes(int64(size))
-	var seed murmurSeed
-	for i := 0; i < b.N; i++ {
-		seed.hash(s)
+func BenchmarkMurmur(b *testing.B) {
+	for _, size := range []int{1, 4, 8, 16, 32, 50, 500} {
+		b.Run(fmt.Sprint(size), func(b *testing.B) {
+			s := strings.Repeat("a", size)
+			b.SetBytes(int64(size))
+			var seed murmurSeed
+			b.ResetTimer()
+			for i := 0; i < b.N; i++ {
+				seed.hash(s)
+			}
+		})
 	}
 }
