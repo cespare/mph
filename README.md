@@ -1,21 +1,24 @@
 # mph
 
-[![GoDoc](https://godoc.org/github.com/cespare/mph?status.svg)](https://godoc.org/github.com/cespare/mph)
 
-mph is a Go package for that implements a
-[minimal perfect hash table](https://en.wikipedia.org/wiki/Perfect_hash_function#Minimal_perfect_hash_function)
-over strings. It uses the
-["Hash, displace, and compress" algorithm](http://cmph.sourceforge.net/papers/esa09.pdf)
-and the [Murmur3 hash function](https://en.wikipedia.org/wiki/MurmurHash).
+[![Go Reference](https://pkg.go.dev/badge/github.com/cespare/mph.svg)](https://pkg.go.dev/github.com/cespare/mph)
 
-Some quick benchmark results (this is on a 2.5 GHz Skylake CPU):
+mph is a Go package for that implements a [minimal perfect hash table][mph] over
+strings. It uses the ["Hash, displace, and compress" algorithm][algo]  and the
+[Murmur3 hash function][murmur3].
 
-* `Build` constructs a minimal perfect hash table from a 99k word dictionary in
-  34ms (construction time is linear in the size of the input).
-* `Lookup`s on that dictionary take <50ns and are 28% faster than a
+Some quick benchmark results (this is on an i7-8700K):
+
+* `Build` constructs a minimal perfect hash table from a 102k word dictionary in
+  18ms (construction time is linear in the size of the input).
+* `Lookup`s on that dictionary take about 30ns and are 27% faster than a
   `map[string]uint32`:
 
     ```
-    BenchmarkTable          300000000               48.6 ns/op
-    BenchmarkTableMap       200000000               67.6 ns/op
+    BenchmarkTable-12               199293806               29.99 ns/op
+    BenchmarkTableMap-12            145449822               40.92 ns/op
     ```
+
+[mph]: https://en.wikipedia.org/wiki/Perfect_hash_function#Minimal_perfect_hash_function
+[algo]: http://cmph.sourceforge.net/papers/esa09.pdf
+[murmur3]: https://en.wikipedia.org/wiki/MurmurHash
