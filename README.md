@@ -14,10 +14,8 @@ Some quick benchmark results (this is on an i7-8700K):
 * `Lookup`s on that dictionary take about 30ns and are 27% faster than a
   `map[string]uint32`:
 
-    ```
-    BenchmarkTable-12               199293806               29.99 ns/op
-    BenchmarkTableMap-12            145449822               40.92 ns/op
-    ```
+      BenchmarkTable-12               199293806               29.99 ns/op
+      BenchmarkTableMap-12            145449822               40.92 ns/op
 
 [mph]: https://en.wikipedia.org/wiki/Perfect_hash_function#Minimal_perfect_hash_function
 [algo]: http://cmph.sourceforge.net/papers/esa09.pdf
