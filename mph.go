@@ -67,12 +67,20 @@ func Build(keys []string) *Table {
 	}
 }
 
-func nextPow2(n int) int {
-	for i := 1; ; i *= 2 {
-		if i >= n {
-			return i
-		}
+func nextPow2(n uint32) uint32 {
+	if n <= 2 {
+		return 2
 	}
+
+	n--
+
+	n |= (n >> 1)
+	n |= (n >> 2)
+	n |= (n >> 4)
+	n |= (n >> 8)
+	n |= (n >> 16)
+
+	return n + 1
 }
 
 // Lookup searches for s in t and returns its index and whether it was found.
