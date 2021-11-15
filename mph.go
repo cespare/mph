@@ -17,9 +17,9 @@ type Table struct {
 // algorithm described in http://cmph.sourceforge.net/papers/esa09.pdf.
 func Build(keys []string) *Table {
 	var (
-		level0        = make([]uint32, nextPow2(len(keys)/4))
+		level0        = make([]uint32, nextPow2(uint32(len(keys)/4)))
 		level0Mask    = len(level0) - 1
-		level1        = make([]uint32, nextPow2(len(keys)))
+		level1        = make([]uint32, nextPow2(uint32(len(keys))))
 		level1Mask    = len(level1) - 1
 		sparseBuckets = make([][]int, len(level0))
 		zeroSeed      = murmurSeed(0)
