@@ -130,3 +130,30 @@ func loadDict(dict string) ([]string, error) {
 	}
 	return words, nil
 }
+
+func Benchmark_nextPow2(b *testing.B) {
+	var tests map[uint32]uint32 = map[uint32]uint32{
+		0:          2,
+		1:          2,
+		2:          2,
+		2049:       4096,
+		4095:       4096,
+		32767:      32768,
+		32768:      32768,
+		16777217:   33554432,
+		536870910:  536870912,
+		2147483647: 2147483648, // max. value
+		2147483648: 2147483648, // max. value
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		for in, exp := range tests {
+			got := nextPow2(in)
+
+			if got != exp {
+				b.Errorf("expected '%d', got '%d'", exp, got)
+			}
+		}
+	}
+}
